@@ -60,6 +60,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       selected: defendingBodyPart == BobyPart.torso,
                       bodyPartSetter: _selectDefendingBodyPart,
                     ),
+                    SizedBox(height: 14),
+                    BodyPartButton(
+                      bodyPart: BobyPart.legs,
+                      selected: defendingBodyPart == BobyPart.legs,
+                      bodyPartSetter: _selectDefendingBodyPart,
+                    ),
                   ],
                 ),
               ),
@@ -80,6 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       selected: attackingBodyPart == BobyPart.torso,
                       bodyPartSetter: _selectAttackingBodyPart,
                     ),
+                    SizedBox(height: 14),
+                    BodyPartButton(
+                      bodyPart: BobyPart.legs,
+                      selected: attackingBodyPart == BobyPart.legs,
+                      bodyPartSetter: _selectAttackingBodyPart,
+                    ),
                   ],
                 ),
               ),
@@ -91,17 +103,20 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               SizedBox(width: 16),
               Expanded(
-                child: SizedBox(
-                  height: 40,
-                  child: ColoredBox(
-                    color: Colors.black87,
-                    child: Center(
-                      child: Text(
-                        'Go'.toUpperCase(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 16,
-                          color: Colors.white,
+                child: GestureDetector(
+                  onTap: () => _pushGoButton(),
+                  child: SizedBox(
+                    height: 40,
+                    child: ColoredBox(
+                      color: _getGoColor(),
+                      child: Center(
+                        child: Text(
+                          'Go'.toUpperCase(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
@@ -128,6 +143,21 @@ class _MyHomePageState extends State<MyHomePage> {
       attackingBodyPart = value;
     });
   }
+
+  void _pushGoButton() {
+    setState(() {
+      defendingBodyPart = null;
+      attackingBodyPart = null;
+    });
+  }
+
+  Color _getGoColor() {
+    if (defendingBodyPart != null && attackingBodyPart != null) {
+      return Colors.black87;
+    } else {
+      return Colors.black26;
+    }
+  }
 }
 
 class BobyPart {
@@ -137,6 +167,7 @@ class BobyPart {
 
   static const head = BobyPart._('Head');
   static const torso = BobyPart._('Torso');
+  static const legs = BobyPart._('Legs');
 
   @override
   String toString() {
@@ -166,7 +197,12 @@ class BodyPartButton extends StatelessWidget {
           color:
               selected ? const Color.fromRGBO(28, 121, 206, 1) : Colors.black26,
           child: Center(
-            child: Text(bodyPart.name.toUpperCase()),
+            child: Text(
+              bodyPart.name.toUpperCase(),
+              style: TextStyle(
+                color: selected ? Colors.white : Colors.black,
+              ),
+            ),
           ),
         ),
       ),
