@@ -27,18 +27,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFD5DEF0),
       body: Column(
         children: [
           SizedBox(height: 40),
-          Row(
-            children: [
-              SizedBox(width: 16),
-              Expanded(child: Center(child: Text('You'))),
-              SizedBox(width: 12),
-              Expanded(child: Center(child: Text('Enemy'))),
-              SizedBox(width: 16),
-            ],
-          ),
+          RowResults(leftText: 'You', rightText: 'Enemy'),
+          RowResults(leftText: '1', rightText: '1'),
+          RowResults(leftText: '1', rightText: '1'),
+          RowResults(leftText: '1', rightText: '1'),
+          RowResults(leftText: '1', rightText: '1'),
+          RowResults(leftText: '1', rightText: '1'),
           Expanded(child: SizedBox()),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 child: Column(
                   children: [
-                    Text('Defend'.toUpperCase()),
+                    Text(
+                      'Defend'.toUpperCase(),
+                      style: TextStyle(color: Color(0xFF151616), fontSize: 16),
+                    ),
                     SizedBox(height: 13),
                     BodyPartButton(
                       bodyPart: BobyPart.head,
@@ -73,7 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 child: Column(
                   children: [
-                    Text('Attack'.toUpperCase()),
+                    Text(
+                      'Attack'.toUpperCase(),
+                      style: TextStyle(color: Color(0xFF151616), fontSize: 16),
+                    ),
                     SizedBox(height: 13),
                     BodyPartButton(
                       bodyPart: BobyPart.head,
@@ -113,9 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Text(
                           'Go'.toUpperCase(),
                           style: TextStyle(
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w700,
                             fontSize: 16,
-                            color: Colors.white,
+                            color: Color(0xFFFFFFDE),
                           ),
                         ),
                       ),
@@ -145,18 +149,64 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushGoButton() {
-    setState(() {
-      defendingBodyPart = null;
-      attackingBodyPart = null;
-    });
+    if (defendingBodyPart != null && attackingBodyPart != null) {
+      setState(() {
+        defendingBodyPart = null;
+        attackingBodyPart = null;
+      });
+    }
   }
 
   Color _getGoColor() {
     if (defendingBodyPart != null && attackingBodyPart != null) {
       return Colors.black87;
     } else {
-      return Colors.black26;
+      return Colors.black38;
     }
+  }
+}
+
+class RowResults extends StatelessWidget {
+  final String leftText;
+  final String rightText;
+
+  const RowResults({
+    Key? key,
+    required this.leftText,
+    required this.rightText,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(width: 16),
+        Expanded(
+          child: Center(
+            child: Text(
+              leftText,
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFF151616),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Center(
+            child: Text(
+              rightText,
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFF151616),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(width: 16),
+      ],
+    );
   }
 }
 
@@ -194,13 +244,13 @@ class BodyPartButton extends StatelessWidget {
       child: SizedBox(
         height: 40,
         child: ColoredBox(
-          color:
-              selected ? const Color.fromRGBO(28, 121, 206, 1) : Colors.black26,
+          color: selected ? const Color(0xFF1C79CE) : Colors.black38,
           child: Center(
             child: Text(
               bodyPart.name.toUpperCase(),
               style: TextStyle(
-                color: selected ? Colors.white : Colors.black,
+                fontSize: 13,
+                color: selected ? Colors.white : Color(0xFF060D14),
               ),
             ),
           ),
