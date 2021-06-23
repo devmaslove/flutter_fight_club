@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_fight_club/fight_club_colors.dart';
 import 'package:flutter_fight_club/fight_club_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -44,9 +45,8 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFD5DEF0),
+      backgroundColor: FightClubColors.background,
       body: SafeArea(
-
         child: Column(
           children: [
             FightersInfo(
@@ -65,7 +65,8 @@ class MyHomePageState extends State<MyHomePage> {
             GoButton(
               onTap: _pushGoButton,
               color: _getGoColor(),
-              text: yourLives == 0 || enemysLives == 0 ? 'Start new game' : 'Go',
+              text:
+                  yourLives == 0 || enemysLives == 0 ? 'Start new game' : 'Go',
             ),
             SizedBox(height: 16),
           ],
@@ -108,12 +109,12 @@ class MyHomePageState extends State<MyHomePage> {
 
   Color _getGoColor() {
     if (yourLives == 0 || enemysLives == 0) {
-      return Colors.black87;
+      return FightClubColors.blackButton;
     }
     if (defendingBodyPart != null && attackingBodyPart != null) {
-      return Colors.black87;
+      return FightClubColors.blackButton;
     }
-    return Colors.black38;
+    return FightClubColors.greyButton;
   }
 
   void _selectAttackingBodyPart(BobyPart value) {
@@ -153,7 +154,7 @@ class GoButton extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
-                  color: Color(0xFFFFFFDE),
+                  color: FightClubColors.whiteText,
                 ),
               ),
             ),
@@ -272,13 +273,13 @@ class BodyPartButton extends StatelessWidget {
       child: SizedBox(
         height: 40,
         child: ColoredBox(
-          color: selected ? const Color(0xFF1C79CE) : Colors.black38,
+          color: selected ? FightClubColors.blueButton : FightClubColors.greyButton,
           child: Center(
             child: Text(
               bodyPart.name.toUpperCase(),
               style: TextStyle(
                 fontSize: 13,
-                color: selected ? Colors.white : Color(0xFF060D14),
+                color: selected ? FightClubColors.whiteText : FightClubColors.darkGreyText,
               ),
             ),
           ),
@@ -350,7 +351,7 @@ class ControlsWidget extends StatelessWidget {
             children: [
               Text(
                 'Defend'.toUpperCase(),
-                style: TextStyle(color: Color(0xFF151616), fontSize: 16),
+                style: TextStyle(color: FightClubColors.darkGreyText, fontSize: 16),
               ),
               SizedBox(height: 13),
               BodyPartButton(
@@ -379,7 +380,7 @@ class ControlsWidget extends StatelessWidget {
             children: [
               Text(
                 'Attack'.toUpperCase(),
-                style: TextStyle(color: Color(0xFF151616), fontSize: 16),
+                style: TextStyle(color: FightClubColors.darkGreyText, fontSize: 16),
               ),
               SizedBox(height: 13),
               BodyPartButton(

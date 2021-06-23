@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class FightClubColors {
   FightClubColors._();
 
-  static const background = Colors.black;
-  static const greyButton = Colors.black;
-  static const blueButton = Colors.black;
-  static const blackButton = Colors.black;
-  static const darkGreyText = Colors.black;
-  static const whiteText = Colors.black;
+  static const background = Color.fromRGBO(213, 222, 240, 1.0);
+  static const greyButton = Colors.black38;
+  static const blueButton = Color.fromRGBO(28, 121, 206, 1.0);
+  static const blackButton = Colors.black87;
+  static const darkGreyText = Color.fromRGBO(22, 22, 22, 1.0);
+  static const whiteText = Color.fromRGBO(255, 255, 255, 0.87);
 }
