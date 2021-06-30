@@ -43,6 +43,8 @@ class MyHomePageState extends State<MyHomePage> {
   int yourLives = maxLives;
   int enemysLives = maxLives;
 
+  String text = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +68,15 @@ class MyHomePageState extends State<MyHomePage> {
                   child: SizedBox(
                     width: double.infinity,
                     height: 146,
+                    child: Center(
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          color: FightClubColors.darkGreyText,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -95,6 +106,7 @@ class MyHomePageState extends State<MyHomePage> {
       setState(() {
         yourLives = maxLives;
         enemysLives = maxLives;
+        text = '';
       });
     } else if (defendingBodyPart != null && attackingBodyPart != null) {
       setState(() {
@@ -105,6 +117,26 @@ class MyHomePageState extends State<MyHomePage> {
         }
         if (youLooseFife) {
           yourLives--;
+        }
+        if ( yourLives == 0 && enemysLives == 0 ) {
+          text = 'Draw';
+        } else if ( yourLives == 0 ) {
+          text = 'You lost';
+        } else if ( enemysLives == 0 ) {
+          text = 'You won';
+        } else {
+          text = '';
+          if (enemyLooseFife) {
+            text += 'You hit enemy’s ${attackingBodyPart?.name.toLowerCase()}.';
+          } else {
+            text += 'Your attack was blocked.';
+          }
+          text += '\n';
+          if (youLooseFife) {
+            text += 'Enemy hit your ${whatEnemyAttacks.name.toLowerCase()}.';
+          } else {
+            text += 'Enemy’s attack was blocked.';
+          }
         }
         whatEnemyDefends = BobyPart.random();
         whatEnemyAttacks = BobyPart.random();
@@ -350,16 +382,26 @@ class LivesWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: List.generate(overallLivesCount, (index) {
         if (index < currentLivesCount) {
-          return Image.asset(
-            FightClubIcons.heartFull,
-            width: 18,
-            height: 18,
+          return Padding(
+            padding: index < overallLivesCount - 1
+                ? const EdgeInsets.only(bottom: 4)
+                : const EdgeInsets.only(),
+            child: Image.asset(
+              FightClubIcons.heartFull,
+              width: 18,
+              height: 18,
+            ),
           );
         } else {
-          return Image.asset(
-            FightClubIcons.heartEmpty,
-            width: 18,
-            height: 18,
+          return Padding(
+            padding: index < overallLivesCount - 1
+                ? const EdgeInsets.only(bottom: 4)
+                : const EdgeInsets.only(),
+            child: Image.asset(
+              FightClubIcons.heartEmpty,
+              width: 18,
+              height: 18,
+            ),
           );
         }
       }),
