@@ -191,7 +191,13 @@ class FightersInfo extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 16),
-              Text('You'),
+              Text(
+                'You',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: FightClubColors.darkGreyText,
+                ),
+              ),
               const SizedBox(height: 12),
               ColoredBox(
                 color: Colors.red,
@@ -212,7 +218,13 @@ class FightersInfo extends StatelessWidget {
           Column(
             children: [
               const SizedBox(height: 16),
-              Text('Enemy'),
+              Text(
+                'Enemy',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: FightClubColors.darkGreyText,
+                ),
+              ),
               const SizedBox(height: 12),
               ColoredBox(
                 color: Colors.blue,
@@ -273,13 +285,17 @@ class BodyPartButton extends StatelessWidget {
       child: SizedBox(
         height: 40,
         child: ColoredBox(
-          color: selected ? FightClubColors.blueButton : FightClubColors.greyButton,
+          color: selected
+              ? FightClubColors.blueButton
+              : FightClubColors.greyButton,
           child: Center(
             child: Text(
               bodyPart.name.toUpperCase(),
               style: TextStyle(
                 fontSize: 13,
-                color: selected ? FightClubColors.whiteText : FightClubColors.darkGreyText,
+                color: selected
+                    ? FightClubColors.whiteText
+                    : FightClubColors.darkGreyText,
               ),
             ),
           ),
@@ -351,7 +367,8 @@ class ControlsWidget extends StatelessWidget {
             children: [
               Text(
                 'Defend'.toUpperCase(),
-                style: TextStyle(color: FightClubColors.darkGreyText, fontSize: 16),
+                style: TextStyle(
+                    color: FightClubColors.darkGreyText, fontSize: 16),
               ),
               SizedBox(height: 13),
               BodyPartButton(
@@ -380,7 +397,8 @@ class ControlsWidget extends StatelessWidget {
             children: [
               Text(
                 'Attack'.toUpperCase(),
-                style: TextStyle(color: FightClubColors.darkGreyText, fontSize: 16),
+                style: TextStyle(
+                    color: FightClubColors.darkGreyText, fontSize: 16),
               ),
               SizedBox(height: 13),
               BodyPartButton(
