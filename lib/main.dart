@@ -34,14 +34,14 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   static const maxLives = 5;
 
-  BobyPart? defendingBodyPart;
-  BobyPart? attackingBodyPart;
+  BodyPart? defendingBodyPart;
+  BodyPart? attackingBodyPart;
 
-  BobyPart whatEnemyAttacks = BobyPart.random();
-  BobyPart whatEnemyDefends = BobyPart.random();
+  BodyPart whatEnemyAttacks = BodyPart.random();
+  BodyPart whatEnemyDefends = BodyPart.random();
 
   int yourLives = maxLives;
-  int enemysLives = maxLives;
+  int enemyLives = maxLives;
 
   String text = '';
 
@@ -54,7 +54,7 @@ class MyHomePageState extends State<MyHomePage> {
           children: [
             FightersInfo(
               yourLives: yourLives,
-              enemysLives: enemysLives,
+              enemyLives: enemyLives,
               maxLivesCount: maxLives,
             ),
             Expanded(
@@ -71,9 +71,11 @@ class MyHomePageState extends State<MyHomePage> {
                     child: Center(
                       child: Text(
                         text,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: FightClubColors.darkGreyText,
                           fontSize: 10,
+                          height: 2,
                         ),
                       ),
                     ),
@@ -92,7 +94,7 @@ class MyHomePageState extends State<MyHomePage> {
               onTap: _pushGoButton,
               color: _getGoColor(),
               text:
-                  yourLives == 0 || enemysLives == 0 ? 'Start new game' : 'Go',
+                  yourLives == 0 || enemyLives == 0 ? 'Start new game' : 'Go',
             ),
             SizedBox(height: 16),
           ],
@@ -102,10 +104,10 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   void _pushGoButton() {
-    if (yourLives == 0 || enemysLives == 0) {
+    if (yourLives == 0 || enemyLives == 0) {
       setState(() {
         yourLives = maxLives;
-        enemysLives = maxLives;
+        enemyLives = maxLives;
         text = '';
       });
     } else if (defendingBodyPart != null && attackingBodyPart != null) {
@@ -113,16 +115,16 @@ class MyHomePageState extends State<MyHomePage> {
         final bool enemyLooseFife = attackingBodyPart != whatEnemyDefends;
         final bool youLooseFife = defendingBodyPart != whatEnemyAttacks;
         if (enemyLooseFife) {
-          enemysLives--;
+          enemyLives--;
         }
         if (youLooseFife) {
           yourLives--;
         }
-        if ( yourLives == 0 && enemysLives == 0 ) {
+        if ( yourLives == 0 && enemyLives == 0 ) {
           text = 'Draw';
         } else if ( yourLives == 0 ) {
           text = 'You lost';
-        } else if ( enemysLives == 0 ) {
+        } else if ( enemyLives == 0 ) {
           text = 'You won';
         } else {
           text = '';
@@ -138,16 +140,16 @@ class MyHomePageState extends State<MyHomePage> {
             text += 'Enemy’s attack was blocked.';
           }
         }
-        whatEnemyDefends = BobyPart.random();
-        whatEnemyAttacks = BobyPart.random();
+        whatEnemyDefends = BodyPart.random();
+        whatEnemyAttacks = BodyPart.random();
         defendingBodyPart = null;
         attackingBodyPart = null;
       });
     }
   }
 
-  void _selectDefendingBodyPart(BobyPart value) {
-    if (yourLives > 0 && enemysLives > 0) {
+  void _selectDefendingBodyPart(BodyPart value) {
+    if (yourLives > 0 && enemyLives > 0) {
       setState(() {
         defendingBodyPart = value;
       });
@@ -155,7 +157,7 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   Color _getGoColor() {
-    if (yourLives == 0 || enemysLives == 0) {
+    if (yourLives == 0 || enemyLives == 0) {
       return FightClubColors.blackButton;
     }
     if (defendingBodyPart != null && attackingBodyPart != null) {
@@ -164,8 +166,8 @@ class MyHomePageState extends State<MyHomePage> {
     return FightClubColors.greyButton;
   }
 
-  void _selectAttackingBodyPart(BobyPart value) {
-    if (yourLives > 0 && enemysLives > 0) {
+  void _selectAttackingBodyPart(BodyPart value) {
+    if (yourLives > 0 && enemyLives > 0) {
       setState(() {
         attackingBodyPart = value;
       });
@@ -215,13 +217,13 @@ class GoButton extends StatelessWidget {
 class FightersInfo extends StatelessWidget {
   final int maxLivesCount;
   final int yourLives;
-  final int enemysLives;
+  final int enemyLives;
 
   const FightersInfo({
     Key? key,
     required this.maxLivesCount,
     required this.yourLives,
-    required this.enemysLives,
+    required this.enemyLives,
   }) : super(key: key);
 
   @override
@@ -290,7 +292,7 @@ class FightersInfo extends StatelessWidget {
 //                  const SizedBox(width: 16),
                   LivesWidget(
                     overallLivesCount: maxLivesCount,
-                    currentLivesCount: enemysLives,
+                    currentLivesCount: enemyLives,
                   ),
 //                  const SizedBox(width: 16),
                 ],
@@ -303,31 +305,31 @@ class FightersInfo extends StatelessWidget {
   }
 }
 
-class BobyPart {
+class BodyPart {
   final String name;
 
-  const BobyPart._(this.name);
+  const BodyPart._(this.name);
 
-  static const head = BobyPart._('Head');
-  static const torso = BobyPart._('Torso');
-  static const legs = BobyPart._('Legs');
+  static const head = BodyPart._('Head');
+  static const torso = BodyPart._('Torso');
+  static const legs = BodyPart._('Legs');
 
   @override
   String toString() {
-    return 'BobyPart{name: $name}';
+    return 'BodyPart{name: $name}';
   }
 
-  static const List<BobyPart> _values = [head, torso, legs];
+  static const List<BodyPart> _values = [head, torso, legs];
 
-  static BobyPart random() {
+  static BodyPart random() {
     return _values[Random().nextInt(_values.length)];
   }
 }
 
 class BodyPartButton extends StatelessWidget {
-  final BobyPart bodyPart;
+  final BodyPart bodyPart;
   final bool selected;
-  final ValueSetter<BobyPart> bodyPartSetter;
+  final ValueSetter<BodyPart> bodyPartSetter;
 
   const BodyPartButton({
     Key? key,
@@ -410,11 +412,11 @@ class LivesWidget extends StatelessWidget {
 }
 
 class ControlsWidget extends StatelessWidget {
-  final BobyPart? defendingBodyPart;
-  final ValueSetter<BobyPart> selectDefendingBodyPart;
+  final BodyPart? defendingBodyPart;
+  final ValueSetter<BodyPart> selectDefendingBodyPart;
 
-  final BobyPart? attackingBodyPart;
-  final ValueSetter<BobyPart> selectAttackingBodyPart;
+  final BodyPart? attackingBodyPart;
+  final ValueSetter<BodyPart> selectAttackingBodyPart;
 
   const ControlsWidget({
     Key? key,
@@ -440,20 +442,20 @@ class ControlsWidget extends StatelessWidget {
               ),
               SizedBox(height: 13),
               BodyPartButton(
-                bodyPart: BobyPart.head,
-                selected: defendingBodyPart == BobyPart.head,
+                bodyPart: BodyPart.head,
+                selected: defendingBodyPart == BodyPart.head,
                 bodyPartSetter: selectDefendingBodyPart,
               ),
               SizedBox(height: 14),
               BodyPartButton(
-                bodyPart: BobyPart.torso,
-                selected: defendingBodyPart == BobyPart.torso,
+                bodyPart: BodyPart.torso,
+                selected: defendingBodyPart == BodyPart.torso,
                 bodyPartSetter: selectDefendingBodyPart,
               ),
               SizedBox(height: 14),
               BodyPartButton(
-                bodyPart: BobyPart.legs,
-                selected: defendingBodyPart == BobyPart.legs,
+                bodyPart: BodyPart.legs,
+                selected: defendingBodyPart == BodyPart.legs,
                 bodyPartSetter: selectDefendingBodyPart,
               ),
             ],
@@ -470,20 +472,20 @@ class ControlsWidget extends StatelessWidget {
               ),
               SizedBox(height: 13),
               BodyPartButton(
-                bodyPart: BobyPart.head,
-                selected: attackingBodyPart == BobyPart.head,
+                bodyPart: BodyPart.head,
+                selected: attackingBodyPart == BodyPart.head,
                 bodyPartSetter: selectAttackingBodyPart,
               ),
               SizedBox(height: 14),
               BodyPartButton(
-                bodyPart: BobyPart.torso,
-                selected: attackingBodyPart == BobyPart.torso,
+                bodyPart: BodyPart.torso,
+                selected: attackingBodyPart == BodyPart.torso,
                 bodyPartSetter: selectAttackingBodyPart,
               ),
               SizedBox(height: 14),
               BodyPartButton(
-                bodyPart: BobyPart.legs,
-                selected: attackingBodyPart == BobyPart.legs,
+                bodyPart: BodyPart.legs,
+                selected: attackingBodyPart == BodyPart.legs,
                 bodyPartSetter: selectAttackingBodyPart,
               ),
             ],
