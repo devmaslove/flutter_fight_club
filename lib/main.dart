@@ -129,15 +129,15 @@ class MyHomePageState extends State<MyHomePage> {
         } else {
           text = '';
           if (enemyLooseFife) {
-            text += 'You hit enemy’s ${attackingBodyPart?.name.toLowerCase()}.';
+            text += "You hit enemy's ${attackingBodyPart?.name.toLowerCase()}.";
           } else {
-            text += 'Your attack was blocked.';
+            text += "Your attack was blocked.";
           }
           text += '\n';
           if (youLooseFife) {
-            text += 'Enemy hit your ${whatEnemyAttacks.name.toLowerCase()}.';
+            text += "Enemy hit your ${whatEnemyAttacks.name.toLowerCase()}.";
           } else {
-            text += 'Enemy’s attack was blocked.';
+            text += "Enemy's attack was blocked.";
           }
         }
         whatEnemyDefends = BodyPart.random();
