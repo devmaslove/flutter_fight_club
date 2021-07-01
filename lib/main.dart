@@ -120,11 +120,11 @@ class MyHomePageState extends State<MyHomePage> {
         if (youLooseFife) {
           yourLives--;
         }
-        if ( yourLives == 0 && enemysLives == 0 ) {
+        if (yourLives == 0 && enemysLives == 0) {
           text = 'Draw';
-        } else if ( yourLives == 0 ) {
+        } else if (yourLives == 0) {
           text = 'You lost';
-        } else if ( enemysLives == 0 ) {
+        } else if (enemysLives == 0) {
           text = 'You won';
         } else {
           text = '';
@@ -230,74 +230,78 @@ class FightersInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 160,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Stack(
         children: [
-          Expanded(
-            child: ColoredBox(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  LivesWidget(
-                    overallLivesCount: maxLivesCount,
-                    currentLivesCount: yourLives,
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      Text(
-                        'You',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: FightClubColors.darkGreyText,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Image.asset(
-                        FightClubImages.youAvatar,
-                        width: 92,
-                        height: 92,
-                      ),
-                    ],
-                  ),
-                ],
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: ColoredBox(
+                  color: Colors.white,
+                ),
               ),
-            ),
+              Expanded(
+                child: ColoredBox(
+                  color: Color.fromRGBO(197, 209, 234, 1),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: ColoredBox(
-              color: Color.fromRGBO(197, 209, 234, 1),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              LivesWidget(
+                overallLivesCount: maxLivesCount,
+                currentLivesCount: yourLives,
+              ),
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      Text(
-                        'Enemy',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: FightClubColors.darkGreyText,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Image.asset(
-                        FightClubImages.enemyAvatar,
-                        width: 92,
-                        height: 92,
-                      ),
-                    ],
+                  const SizedBox(height: 16),
+                  Text(
+                    'You',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: FightClubColors.darkGreyText,
+                    ),
                   ),
-//                  const SizedBox(width: 16),
-                  LivesWidget(
-                    overallLivesCount: maxLivesCount,
-                    currentLivesCount: enemysLives,
+                  const SizedBox(height: 12),
+                  Image.asset(
+                    FightClubImages.youAvatar,
+                    width: 92,
+                    height: 92,
                   ),
-//                  const SizedBox(width: 16),
                 ],
               ),
-            ),
+              ColoredBox(
+                color: Colors.green,
+                child: SizedBox(
+                  width: 44,
+                  height: 44,
+                ),
+              ),
+              Column(
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
+                    'Enemy',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: FightClubColors.darkGreyText,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Image.asset(
+                    FightClubImages.enemyAvatar,
+                    width: 92,
+                    height: 92,
+                  ),
+                ],
+              ),
+              LivesWidget(
+                overallLivesCount: maxLivesCount,
+                currentLivesCount: enemysLives,
+              ),
+            ],
           ),
         ],
       ),
