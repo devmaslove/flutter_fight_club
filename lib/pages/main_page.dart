@@ -53,6 +53,7 @@ class _MainPageContent extends StatelessWidget {
                       'Last fight result',
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontSize: 14,
                         color: FightClubColors.darkGreyText,
                       ),
                     ),
