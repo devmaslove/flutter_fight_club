@@ -1,3 +1,4 @@
+
 class FightResult {
   final String result;
   const FightResult._(this.result);
@@ -15,6 +16,15 @@ class FightResult {
       return won;
     }
     return null;
+  }
+
+  static FightResult getResultByText(final String text) {
+    if ( won.result == text ) {
+      return won;
+    } else if (lost.result == text) {
+      return lost;
+    }
+    return draw;
   }
 
   @override

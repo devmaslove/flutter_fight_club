@@ -104,7 +104,22 @@ class FightPageState extends State<FightPage> {
         if (fightResult != null) {
           SharedPreferences.getInstance().then((sharedPreferences) {
             sharedPreferences.setString(
-                'last_fight_result', fightResult.result);
+              'last_fight_result',
+              fightResult.result,
+            );
+            if ( fightResult == FightResult.won ) {
+              int stats_won = sharedPreferences.getInt('stats_won') ?? 0;
+              stats_won++;
+              sharedPreferences.setInt('stats_won', stats_won);
+            } else if ( fightResult == FightResult.lost ) {
+              int stats_lost = sharedPreferences.getInt('stats_lost') ?? 0;
+              stats_lost++;
+              sharedPreferences.setInt('stats_lost', stats_lost);
+            } else if (fightResult==FightResult.draw) {
+              int stats_draw = sharedPreferences.getInt('stats_draw') ?? 0;
+              stats_draw++;
+              sharedPreferences.setInt('stats_draw', stats_draw);
+            }
           });
         }
         text = _calculateCenterText(youLooseFife, enemyLooseFife);
