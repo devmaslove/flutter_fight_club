@@ -10,7 +10,7 @@ class FightResultWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160,
+      height: 140,
       child: Stack(
         children: [
           Row(
